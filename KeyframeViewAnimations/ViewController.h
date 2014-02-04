@@ -9,5 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+{
+  __weak IBOutlet UIImageView *imageViewToAnimate;
+  __weak IBOutlet UIView *animationView;
+  __weak IBOutlet UIButton *animateButton;
+  
+  CGPoint startingCenter;
+}
+
+- (IBAction)handleAnimateButton:(id)sender;
 
 @end

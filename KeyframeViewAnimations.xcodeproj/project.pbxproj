@@ -462,6 +462,7 @@
 				AE581CEE18A1477E003EA317 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AE581CEF18A1477E003EA317 /* Build configuration list for PBXNativeTarget "KeyframeViewAnimationsTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +471,7 @@
 				AE581CF118A1477E003EA317 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
