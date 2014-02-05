@@ -21,6 +21,7 @@
 		AE581CDF18A1477E003EA317 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CC118A1477E003EA317 /* UIKit.framework */; };
 		AE581CE718A1477E003EA317 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE581CE518A1477E003EA317 /* InfoPlist.strings */; };
 		AE581CE918A1477E003EA317 /* KeyframeViewAnimationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */; };
+		AE699F1D18A2A61D001433F3 /* NSObject+setAssocValueForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = AE699F1C18A2A61D001433F3 /* NSObject+setAssocValueForKey.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		AE581CE418A1477E003EA317 /* KeyframeViewAnimationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyframeViewAnimationsTests-Info.plist"; sourceTree = "<group>"; };
 		AE581CE618A1477E003EA317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyframeViewAnimationsTests.m; sourceTree = "<group>"; };
+		AE699F1B18A2A61D001433F3 /* NSObject+setAssocValueForKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+setAssocValueForKey.h"; sourceTree = "<group>"; };
+		AE699F1C18A2A61D001433F3 /* NSObject+setAssocValueForKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+setAssocValueForKey.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 		AE581CC318A1477E003EA317 /* KeyframeViewAnimations */ = {
 			isa = PBXGroup;
 			children = (
+				AE699F1B18A2A61D001433F3 /* NSObject+setAssocValueForKey.h */,
+				AE699F1C18A2A61D001433F3 /* NSObject+setAssocValueForKey.m */,
 				AE581CCC18A1477E003EA317 /* AppDelegate.h */,
 				AE581CCD18A1477E003EA317 /* AppDelegate.m */,
 				AE581CCF18A1477E003EA317 /* Main.storyboard */,
@@ -251,6 +256,7 @@
 			files = (
 				AE581CD418A1477E003EA317 /* ViewController.m in Sources */,
 				AE581CCE18A1477E003EA317 /* AppDelegate.m in Sources */,
+				AE699F1D18A2A61D001433F3 /* NSObject+setAssocValueForKey.m in Sources */,
 				AE581CCA18A1477E003EA317 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

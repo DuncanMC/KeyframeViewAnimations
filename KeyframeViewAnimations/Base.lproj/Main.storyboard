@@ -21,13 +21,23 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9tq-gN-hO8">
-                                        <rect key="frame" x="483" y="698" width="57" height="30"/>
+                                        <rect key="frame" x="228" y="698" width="170" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <state key="normal" title="Animate">
+                                        <state key="normal" title="Keyframe animation">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="handleAnimateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rUF-K7-d2L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ovd-wr-dQE">
+                                        <rect key="frame" x="626" y="699" width="170" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Core Animation Rotation">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleRotateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uq6-lY-8rU"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -42,6 +52,7 @@
                         <outlet property="animateButton" destination="9tq-gN-hO8" id="PLI-iT-jpI"/>
                         <outlet property="animationView" destination="kjr-2a-nhD" id="E1z-7t-XDi"/>
                         <outlet property="imageViewToAnimate" destination="aQM-ND-vBh" id="o0C-Ej-ma8"/>
+                        <outlet property="rotateButton" destination="Ovd-wr-dQE" id="3Nq-mJ-9DM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

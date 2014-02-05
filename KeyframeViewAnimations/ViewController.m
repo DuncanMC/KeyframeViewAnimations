@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "NSObject+setAssocValueForKey.h"
+
 
 @interface ViewController ()
 
@@ -33,15 +35,24 @@
 
 
 
+//------------------------------------------------------------------------------------------------------
+#pragma mark - IBAction methods
+//------------------------------------------------------------------------------------------------------
+
 - (IBAction)handleAnimateButton:(id)sender
 {
   imageViewToAnimate.center = startingCenter;
   animateButton.enabled = NO;
+  rotateButton.enabled = NO;
+  
   CGSize imageSize = imageViewToAnimate.bounds.size;
   
-  //Create a rectangle to contain the center-point of our animations (inset by 20 pixels+ the height & width of the image view
-  CGRect animationBounds = CGRectIntegral(CGRectInset( animationView.bounds, 20 + imageSize.width/2, 20+imageSize.height/2));
-  
+  //Create a rectangle to contain the center-point of our animations
+  //(inset by 20 pixels+ the height & width of the image view
+  CGRect animationBounds = CGRectIntegral(
+                                          CGRectInset(
+                                                      animationView.bounds, 20 + imageSize.width/2,
+                                                      20+imageSize.height/2));
   CGFloat totalDuration = 8;
   
   __block CGFloat animationSteps = 6;
@@ -94,13 +105,12 @@
                                relativeDuration: relDuration
                                      animations:
         ^{
-          CGFloat angle =M_PI * 4 * stepCount/animationSteps;
-          CGAffineTransform transform = CGAffineTransformMakeRotation(angle);
+          CGFloat viewAngle =M_PI * 4 * stepCount/animationSteps;
+          CGAffineTransform transform = CGAffineTransformMakeRotation(viewAngle);
           imageViewToAnimate.transform = transform;
         }
         ];
      }
-
    }
                             completion: ^(BOOL finished)
    {
@@ -115,9 +125,59 @@
                       completion: ^(BOOL finished)
       {
         animateButton.enabled = YES;
+        rotateButton.enabled = YES;
       }];
    }];
   
   
 }
+
+- (IBAction)handleRotateButton:(UIButton *)sender
+{
+#define full_rotation M_PI*2
+#define rotation_count 2
+  
+  animateButton.enabled = NO;
+  rotateButton.enabled = NO;
+  
+  animationCompletionBlock completionBlock;
+
+
+  static float change =-full_rotation* rotation_count;
+  
+  change *= -1;
+  CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform"];
+  rotation.duration =  rotation_count;
+  rotation.fromValue = @(angle);
+  angle += change;
+  rotation.toValue = @(angle);
+  
+  rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+  rotation.valueFunction = [CAValueFunction functionWithName:kCAValueFunctionRotateZ];
+  rotation.delegate = self;
+  
+
+  completionBlock = ^void(void)
+  {
+    animateButton.enabled = YES;
+    rotateButton.enabled = YES;
+    imageViewToAnimate.layer.transform = CATransform3DIdentity;
+  };
+
+  [rotation setValue: completionBlock forKey: kAnimationCompletionBlock];
+  
+  imageViewToAnimate.layer.transform = CATransform3DRotate(imageViewToAnimate.layer.transform, change, 0, 0, 1.0);
+  [imageViewToAnimate.layer addAnimation:rotation forKey:@"transform.rotation.z"];
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+{
+  animationCompletionBlock theBlock = [theAnimation valueForKey: kAnimationCompletionBlock];
+  if (theBlock)
+    theBlock();
+}
+
+
 @end
