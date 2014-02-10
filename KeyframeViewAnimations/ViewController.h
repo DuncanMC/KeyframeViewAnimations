@@ -18,6 +18,7 @@ typedef void (^animationCompletionBlock)(void);
   __weak IBOutlet UIButton *animateButton;
   __weak IBOutlet UIButton *rotateButton;
   
+  __weak IBOutlet UIView *keyframeAnimationPlaceholder;
   CGPoint startingCenter;
   CGFloat angle;
 }
