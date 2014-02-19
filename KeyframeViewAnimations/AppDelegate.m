@@ -11,14 +11,6 @@
 @implementation AppDelegate
 
 
-typedef struct
-{
-  int a;
-  int b;
-  float aFloat;
-} testStruct;
-
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
