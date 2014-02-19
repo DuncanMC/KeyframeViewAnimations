@@ -59,8 +59,8 @@
                                             <action selector="handleRotateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uq6-lY-8rU"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="adO-yf-K8c">
-                                        <rect key="frame" x="18" y="55" width="984" height="34"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="adO-yf-K8c" customClass="WTCustomSlider">
+                                        <rect key="frame" x="18" y="51" width="984" height="34"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="handleAnimationSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="4Zg-19-Hrg"/>

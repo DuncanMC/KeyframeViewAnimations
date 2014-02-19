@@ -192,7 +192,6 @@
   totalAnimationTime = totalDuration;
   animationStartTime = CACurrentMediaTime();
   imageViewToAnimate.layer.beginTime = 0;
-  NSLog(@"Animation start time = %.2f", animationStartTime);
   
   animationProgress = 0;
 

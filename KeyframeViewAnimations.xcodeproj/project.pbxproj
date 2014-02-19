@@ -21,7 +21,6 @@
 		AE581CDF18A1477E003EA317 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CC118A1477E003EA317 /* UIKit.framework */; };
 		AE581CE718A1477E003EA317 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE581CE518A1477E003EA317 /* InfoPlist.strings */; };
 		AE581CE918A1477E003EA317 /* KeyframeViewAnimationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */; };
-		AEE1EA0318B5317500CBAFDD /* ICCustomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE1EA0218B5317500CBAFDD /* ICCustomSlider.m */; };
 		AEE1EA0618B542E000CBAFDD /* CALayer+setUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE1EA0518B542E000CBAFDD /* CALayer+setUIColor.m */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +54,6 @@
 		AE581CE418A1477E003EA317 /* KeyframeViewAnimationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyframeViewAnimationsTests-Info.plist"; sourceTree = "<group>"; };
 		AE581CE618A1477E003EA317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyframeViewAnimationsTests.m; sourceTree = "<group>"; };
-		AEE1EA0118B5317500CBAFDD /* ICCustomSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICCustomSlider.h; path = ../../iCaverns_new/iCaverns_new/ICCustomSlider.h; sourceTree = "<group>"; };
-		AEE1EA0218B5317500CBAFDD /* ICCustomSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICCustomSlider.m; path = ../../iCaverns_new/iCaverns_new/ICCustomSlider.m; sourceTree = "<group>"; };
 		AEE1EA0418B542E000CBAFDD /* CALayer+setUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CALayer+setUIColor.h"; path = "../../iCaverns_new/iCaverns_new/ThirdPartyCode/CALayer+setUIColor.h"; sourceTree = "<group>"; };
 		AEE1EA0518B542E000CBAFDD /* CALayer+setUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CALayer+setUIColor.m"; path = "../../iCaverns_new/iCaverns_new/ThirdPartyCode/CALayer+setUIColor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,8 +120,6 @@
 				AE581CCF18A1477E003EA317 /* Main.storyboard */,
 				AEE1EA0418B542E000CBAFDD /* CALayer+setUIColor.h */,
 				AEE1EA0518B542E000CBAFDD /* CALayer+setUIColor.m */,
-				AEE1EA0118B5317500CBAFDD /* ICCustomSlider.h */,
-				AEE1EA0218B5317500CBAFDD /* ICCustomSlider.m */,
 				AE581CD218A1477E003EA317 /* ViewController.h */,
 				AE581CD318A1477E003EA317 /* ViewController.m */,
 				AE581CD518A1477E003EA317 /* Images.xcassets */,
@@ -260,7 +255,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE581CD418A1477E003EA317 /* ViewController.m in Sources */,
-				AEE1EA0318B5317500CBAFDD /* ICCustomSlider.m in Sources */,
 				AE581CCE18A1477E003EA317 /* AppDelegate.m in Sources */,
 				AE581CCA18A1477E003EA317 /* main.m in Sources */,
 				AEE1EA0618B542E000CBAFDD /* CALayer+setUIColor.m in Sources */,
