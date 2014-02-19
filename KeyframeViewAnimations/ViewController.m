@@ -21,19 +21,22 @@
 -(void) setAnimationIsPaused:(BOOL)animationIsPaused;
 {
   _animationIsPaused = animationIsPaused;
-  [self setPauseButtonTitle];
+//  [self setPauseButtonTitle];
+  [self performSelector: @selector(setPauseButtonTitle) withObject: nil afterDelay: 0];
   
   CALayer *theLayer = imageViewToAnimate.layer;
 
   if (animationIsPaused)
   {
-    CFTimeInterval mediaTime = CACurrentMediaTime();
-    animationProgress = mediaTime - animationStartTime ;
-    CFTimeInterval pausedTime = [theLayer convertTime: mediaTime fromLayer: nil];
-    theLayer.speed = 0;
-    
-    theLayer.timeOffset = pausedTime;
     [sliderTimer invalidate];
+    theLayer.speed = 0;
+    CFTimeInterval mediaTime = CACurrentMediaTime();
+    animationProgress = mediaTime - animationStartTime;
+    CFTimeInterval pausedTime = mediaTime;
+    
+    theLayer.timeOffset = pausedTime-theLayer.beginTime;
+    animationStartTime -= theLayer.beginTime;
+    theLayer.beginTime = 0;
   }
   else
   {
@@ -43,7 +46,7 @@
     CFTimeInterval mediaTime = CACurrentMediaTime();
     CFTimeInterval timeSincePause = mediaTime - pausedTime;
     theLayer.beginTime = timeSincePause;
-    animationStartTime = CACurrentMediaTime() ;//- animationProgress
+    animationStartTime = CACurrentMediaTime() -animationProgress;
     theLayer.speed = 1.0;
     [self startSliderTimer];
   }
@@ -146,6 +149,7 @@
     imageViewToAnimate.layer.transform = CATransform3DIdentity;
     [sliderTimer invalidate];
     _animationIsPaused = NO;
+    imageViewToAnimate.layer.timeOffset = 0;
     [self setPauseButtonTitle];
   };
   
@@ -184,7 +188,7 @@
                                           CGRectInset(
                                                       animationView.bounds, 20 + imageSize.width/2,
                                                       20+imageSize.height/2));
-  CGFloat totalDuration = 3.0;
+  CGFloat totalDuration = 8.0;
   totalAnimationTime = totalDuration;
   animationStartTime = CACurrentMediaTime();
   imageViewToAnimate.layer.beginTime = 0;
@@ -304,7 +308,7 @@
 
      //Animate the image view back to it's starting point.
      _animationIsPaused = NO;
-     [UIView animateWithDuration: .5
+     [UIView animateWithDuration: .2
                            delay: .5
                          options: 0
                       animations:
@@ -382,7 +386,7 @@
 
 
   //First move the image view to it's starting position in the lower left corner of the screen
-  [UIView animateWithDuration: 1.0
+  [UIView animateWithDuration: .2
                    animations:
    ^{
      imageViewToAnimate.center = keyframeAnimationPlaceholder.center;
@@ -390,7 +394,7 @@
                    completion:^(BOOL finished)
    {
      //Once that animation is done, trigger the keyframe animation after a brief pause.
-     [self performSelector: @selector(doKeyFrameViewAnimation) withObject: nil afterDelay: .5];
+     [self performSelector: @selector(doKeyFrameViewAnimation) withObject: nil afterDelay: .75];
    }
    ];
 }
@@ -426,10 +430,16 @@
 - (IBAction)handleAnimationSlider:(UISlider *)sender
 {
   CGFloat sliderValue = sender.value;
-  CFTimeInterval offset =animationStartTime + sliderValue * totalAnimationTime;
+  CGFloat temp = sliderValue * totalAnimationTime;
+
+     CFTimeInterval offset =animationStartTime + animationProgress;
   if (!self.animationIsPaused)
     self.animationIsPaused = YES;
-  imageViewToAnimate.layer.timeOffset = offset;
+  else
+  {
+    imageViewToAnimate.layer.timeOffset = offset;
+    animationProgress =  temp;
+  }
 }
 
 
