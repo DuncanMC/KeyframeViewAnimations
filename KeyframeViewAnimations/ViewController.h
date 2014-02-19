@@ -11,6 +11,12 @@
 #define kAnimationCompletionBlock @"animationCompletionBlock"
 typedef void (^animationCompletionBlock)(void);
 
+typedef enum
+{
+  keyframeAnimation,
+  rotationAnimation
+} animationType;
+
 @interface ViewController : UIViewController
 {
   __weak IBOutlet UIImageView *imageViewToAnimate;
@@ -18,12 +24,27 @@ typedef void (^animationCompletionBlock)(void);
   __weak IBOutlet UIButton *animateButton;
   __weak IBOutlet UIButton *rotateButton;
   
+  __weak IBOutlet UIButton *pauseButton;
+  __weak IBOutlet UIButton *stopButton;
+  __weak IBOutlet UISlider *animationSlider;
+  
   __weak IBOutlet UIView *keyframeAnimationPlaceholder;
   CGPoint startingCenter;
   CGFloat angle;
+  CFTimeInterval animationStartTime;
+  CFTimeInterval totalAnimationTime;
+  CGFloat animationProgress;
+  
+  
+  __weak NSTimer *sliderTimer;
 }
+
+@property (nonatomic, assign)   BOOL animationIsPaused;
 
 - (IBAction)handleAnimateButton:(id)sender;
 - (IBAction)handleRotateButton:(UIButton *)sender;
+- (IBAction)handlePauseButton:(UIButton *)sender;
+- (IBAction)handleAnimationSlider:(UISlider *)sender;
+- (IBAction)handleStopButton:(UIButton *)sender;
 
 @end

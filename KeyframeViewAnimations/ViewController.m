@@ -15,6 +15,43 @@
 @implementation ViewController
 
 //------------------------------------------------------------------------------------------------------
+#pragma mark - property methods
+//------------------------------------------------------------------------------------------------------
+
+-(void) setAnimationIsPaused:(BOOL)animationIsPaused;
+{
+  _animationIsPaused = animationIsPaused;
+  [self setPauseButtonTitle];
+  
+  CALayer *theLayer = imageViewToAnimate.layer;
+
+  if (animationIsPaused)
+  {
+    CFTimeInterval mediaTime = CACurrentMediaTime();
+    animationProgress = mediaTime - animationStartTime ;
+    CFTimeInterval pausedTime = [theLayer convertTime: mediaTime fromLayer: nil];
+    theLayer.speed = 0;
+    
+    theLayer.timeOffset = pausedTime;
+    [sliderTimer invalidate];
+  }
+  else
+  {
+    CFTimeInterval pausedTime = [theLayer timeOffset];
+    theLayer.timeOffset = 0.0;
+    theLayer.beginTime = 0.0;
+    CFTimeInterval mediaTime = CACurrentMediaTime();
+    CFTimeInterval timeSincePause = mediaTime - pausedTime;
+    theLayer.beginTime = timeSincePause;
+    animationStartTime = CACurrentMediaTime() ;//- animationProgress
+    theLayer.speed = 1.0;
+    [self startSliderTimer];
+  }
+}
+
+//------------------------------------------------------------------------------------------------------
+#pragma mark - view lifecycle methods
+//------------------------------------------------------------------------------------------------------
 
 - (void) viewDidAppear:(BOOL)animated
 {
@@ -65,6 +102,10 @@
 
  */
 
+//------------------------------------------------------------------------------------------------------
+#pragma mark - custom instance methods
+//------------------------------------------------------------------------------------------------------
+
 - (void) handleRotate;
 {
 #define full_rotation M_PI*2
@@ -77,7 +118,10 @@
   
   change *= -1;
   CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"transform"];
-  rotation.duration =  rotation_count;
+  totalAnimationTime = rotation_count;
+  imageViewToAnimate.layer.beginTime = 0;
+
+  rotation.duration =  totalAnimationTime;
   rotation.fromValue = @(angle);
   angle += change;
   rotation.toValue = @(angle);
@@ -85,14 +129,24 @@
   rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
   rotation.valueFunction = [CAValueFunction functionWithName:kCAValueFunctionRotateZ];
   rotation.delegate = self;
-  
+  animationStartTime = CACurrentMediaTime();
+
   
   //Create a block of code to be executed once our animation finishes.
   completionBlock = ^void(void)
   {
     animateButton.enabled = YES;
     rotateButton.enabled = YES;
+    pauseButton.enabled = NO;
+    stopButton.enabled = NO;
+
+    animationSlider.enabled = NO;
+    animationSlider.value = 0;
+
     imageViewToAnimate.layer.transform = CATransform3DIdentity;
+    [sliderTimer invalidate];
+    _animationIsPaused = NO;
+    [self setPauseButtonTitle];
   };
   
   /*
@@ -108,6 +162,7 @@
   imageViewToAnimate.layer.transform = CATransform3DRotate(imageViewToAnimate.layer.transform, change, 0, 0, 1.0);
   
   //Now actually add the animation to the layer.
+  [self startSliderTimer];
   [imageViewToAnimate.layer addAnimation:rotation forKey:@"transform.rotation.z"];
 }
 
@@ -129,7 +184,15 @@
                                           CGRectInset(
                                                       animationView.bounds, 20 + imageSize.width/2,
                                                       20+imageSize.height/2));
-  CGFloat totalDuration = 8;
+  CGFloat totalDuration = 3.0;
+  totalAnimationTime = totalDuration;
+  animationStartTime = CACurrentMediaTime();
+  imageViewToAnimate.layer.beginTime = 0;
+  NSLog(@"Animation start time = %.2f", animationStartTime);
+  
+  animationProgress = 0;
+
+  [self startSliderTimer];
   
   __block CGFloat animationSteps = 6;
   
@@ -152,7 +215,7 @@
     CGFloat newX;
     
     //Alternate between the top and bottom of the animation view
-        if (stepCount %2 == 0) //even step (0, 2, 4, 6). Position along the bottom
+    if (stepCount %2 == 0) //even step (0, 2, 4, 6). Position along the bottom
       newY = floorf(animationBounds.origin.y +animationBounds.size.height);
     else
       newY =animationBounds.origin.y;
@@ -179,6 +242,8 @@
    Furthermore, these keyframe animation steps can operate on mulitple different view objects.
    */
   
+  animationSlider.enabled = YES;
+
   [UIView animateKeyframesWithDuration:totalDuration
                                  delay:0.0
                                options: UIViewKeyframeAnimationOptionCalculationModeCubic + UIViewAnimationOptionCurveLinear
@@ -227,8 +292,18 @@
    //Provide a completion block for the entire keyframe sequnce.
                             completion: ^(BOOL finished)
    {
-     
+     [sliderTimer invalidate];
+     animationSlider.enabled = NO;
+     pauseButton.enabled = NO;
+     stopButton.enabled = NO;
+
+     animationSlider.value = 0;
+
+
+     //--------------
+
      //Animate the image view back to it's starting point.
+     _animationIsPaused = NO;
      [UIView animateWithDuration: .5
                            delay: .5
                          options: 0
@@ -242,6 +317,9 @@
       {
         animateButton.enabled = YES;
         rotateButton.enabled = YES;
+
+        animationSlider.value = 0;
+        [self setPauseButtonTitle];
       }];
    }];
 }
@@ -260,6 +338,31 @@
     theBlock();
 }
 
+- (void) startSliderTimer;
+{
+  sliderTimer = [NSTimer scheduledTimerWithTimeInterval: 1/30.0
+                                                 target: self selector: @selector(handleSliderTimer:)
+                                               userInfo: nil
+                                                repeats: YES];
+}
+
+- (void) handleSliderTimer: (NSTimer *) timer;
+{
+  animationProgress = CACurrentMediaTime() - animationStartTime ;
+  CGFloat sliderValue = animationProgress/totalAnimationTime;
+  animationSlider.value = sliderValue;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (void) setPauseButtonTitle;
+{
+  NSString *buttonTitle;
+  NSString *pauseString = NSLocalizedString(@"Pause", nil);
+  NSString *continueString = NSLocalizedString(@"Continue", nil);
+  buttonTitle = _animationIsPaused ? continueString: pauseString;
+  [pauseButton setTitle: buttonTitle forState: UIControlStateNormal];
+}
 
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark - IBAction methods
@@ -268,8 +371,15 @@
 - (IBAction)handleAnimateButton:(id)sender
 {
   //Before we start, disable the animation buttons so the user can't trigger an animation until we're done
+  imageViewToAnimate.layer.timeOffset = 0;
   animateButton.enabled = NO;
+  animationProgress = 0;
   rotateButton.enabled = NO;
+  pauseButton.enabled = YES;
+  stopButton.enabled = YES;
+  
+  imageViewToAnimate.layer.speed = 1.0;
+
 
   //First move the image view to it's starting position in the lower left corner of the screen
   [UIView animateWithDuration: 1.0
@@ -292,8 +402,45 @@
   //Before we start, disable the animation buttons so the user can't trigger an animation until we're done
   animateButton.enabled = NO;
   rotateButton.enabled = NO;
+  pauseButton.enabled =YES;
+  stopButton.enabled = YES;
+  animationSlider.enabled = YES;
+  
+  imageViewToAnimate.layer.speed = 1.0;
+  
+  animationStartTime = CACurrentMediaTime();
+  animationProgress = 0;
+
 
   [self handleRotate];
+}
+//-----------------------------------------------------------------------------------------------------------
+
+- (IBAction)handlePauseButton:(UIButton *)sender
+{
+  self.animationIsPaused = !self.animationIsPaused;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (IBAction)handleAnimationSlider:(UISlider *)sender
+{
+  CGFloat sliderValue = sender.value;
+  CFTimeInterval offset =animationStartTime + sliderValue * totalAnimationTime;
+  if (!self.animationIsPaused)
+    self.animationIsPaused = YES;
+  imageViewToAnimate.layer.timeOffset = offset;
+}
+
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (IBAction)handleStopButton:(UIButton *)sender
+{
+  [sliderTimer invalidate];
+  [imageViewToAnimate.layer removeAllAnimations];
+  imageViewToAnimate.layer.speed = 1.0;
+//  self.animationIsPaused = NO;
 }
 
 @end
