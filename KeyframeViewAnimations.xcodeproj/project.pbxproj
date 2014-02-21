@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE12142718B6DE1D00AA9441 /* CALayer+setUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AE12142618B6DE1D00AA9441 /* CALayer+setUIColor.m */; };
 		AE581CBE18A1477E003EA317 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CBD18A1477E003EA317 /* Foundation.framework */; };
 		AE581CC018A1477E003EA317 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CBF18A1477E003EA317 /* CoreGraphics.framework */; };
 		AE581CC218A1477E003EA317 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CC118A1477E003EA317 /* UIKit.framework */; };
@@ -21,7 +22,6 @@
 		AE581CDF18A1477E003EA317 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CC118A1477E003EA317 /* UIKit.framework */; };
 		AE581CE718A1477E003EA317 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE581CE518A1477E003EA317 /* InfoPlist.strings */; };
 		AE581CE918A1477E003EA317 /* KeyframeViewAnimationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */; };
-		AEE1EA0618B542E000CBAFDD /* CALayer+setUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE1EA0518B542E000CBAFDD /* CALayer+setUIColor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE12142518B6DE1D00AA9441 /* CALayer+setUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+setUIColor.h"; sourceTree = "<group>"; };
+		AE12142618B6DE1D00AA9441 /* CALayer+setUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+setUIColor.m"; sourceTree = "<group>"; };
 		AE581CBA18A1477E003EA317 /* KeyframeViewAnimations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyframeViewAnimations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE581CBD18A1477E003EA317 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE581CBF18A1477E003EA317 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -54,8 +56,6 @@
 		AE581CE418A1477E003EA317 /* KeyframeViewAnimationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyframeViewAnimationsTests-Info.plist"; sourceTree = "<group>"; };
 		AE581CE618A1477E003EA317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyframeViewAnimationsTests.m; sourceTree = "<group>"; };
-		AEE1EA0418B542E000CBAFDD /* CALayer+setUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CALayer+setUIColor.h"; path = "../../iCaverns_new/iCaverns_new/ThirdPartyCode/CALayer+setUIColor.h"; sourceTree = "<group>"; };
-		AEE1EA0518B542E000CBAFDD /* CALayer+setUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CALayer+setUIColor.m"; path = "../../iCaverns_new/iCaverns_new/ThirdPartyCode/CALayer+setUIColor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +118,8 @@
 				AE581CCC18A1477E003EA317 /* AppDelegate.h */,
 				AE581CCD18A1477E003EA317 /* AppDelegate.m */,
 				AE581CCF18A1477E003EA317 /* Main.storyboard */,
-				AEE1EA0418B542E000CBAFDD /* CALayer+setUIColor.h */,
-				AEE1EA0518B542E000CBAFDD /* CALayer+setUIColor.m */,
+				AE12142518B6DE1D00AA9441 /* CALayer+setUIColor.h */,
+				AE12142618B6DE1D00AA9441 /* CALayer+setUIColor.m */,
 				AE581CD218A1477E003EA317 /* ViewController.h */,
 				AE581CD318A1477E003EA317 /* ViewController.m */,
 				AE581CD518A1477E003EA317 /* Images.xcassets */,
@@ -254,10 +254,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE12142718B6DE1D00AA9441 /* CALayer+setUIColor.m in Sources */,
 				AE581CD418A1477E003EA317 /* ViewController.m in Sources */,
 				AE581CCE18A1477E003EA317 /* AppDelegate.m in Sources */,
 				AE581CCA18A1477E003EA317 /* main.m in Sources */,
-				AEE1EA0618B542E000CBAFDD /* CALayer+setUIColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
