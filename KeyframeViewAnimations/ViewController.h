@@ -22,6 +22,7 @@ typedef enum
   __weak IBOutlet UIImageView *imageViewToAnimate;
   __weak IBOutlet UIView *animationView;
   __weak IBOutlet UIButton *animateButton;
+  __weak IBOutlet UIButton *animateCAButton;
   __weak IBOutlet UIButton *rotateButton;
   
   __weak IBOutlet UIButton *pauseButton;
@@ -41,7 +42,7 @@ typedef enum
 
 @property (nonatomic, assign)   BOOL animationIsPaused;
 
-- (IBAction)handleAnimateButton:(id)sender;
+- (IBAction)handleAnimateButton:(UIButton *)sender;
 - (IBAction)handleRotateButton:(UIButton *)sender;
 - (IBAction)handlePauseButton:(UIButton *)sender;
 - (IBAction)handleAnimationSlider:(UISlider *)sender;

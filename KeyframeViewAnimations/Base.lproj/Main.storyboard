@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
@@ -8,50 +8,83 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5y8-3o-ThU"/>
+                        <viewControllerLayoutGuide type="bottom" id="keB-l4-P3x"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="kjr-2a-nhD" userLabel="animationView">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="649"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kjr-2a-nhD" userLabel="animationView">
+                                <rect key="frame" x="2" y="20" width="1024" height="649"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="oYQ-6f-tgM" userLabel="Animation start placeholder">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYQ-6f-tgM" userLabel="Animation start placeholder">
                                         <rect key="frame" x="20" y="554" width="100" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WareTo Keyframe View Animation Demo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iO0-Dk-jMz">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WareTo Keyframe View Animation Demo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iO0-Dk-jMz">
                                         <rect key="frame" x="358" y="160" width="308" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WareTo icon" id="aQM-ND-vBh">
+                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WareTo icon" translatesAutoresizingMaskIntoConstraints="NO" id="aQM-ND-vBh">
                                         <rect key="frame" x="462" y="63" width="100" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="oYQ-6f-tgM" firstAttribute="top" secondItem="kjr-2a-nhD" secondAttribute="top" constant="554" id="KmT-Vc-v3a"/>
+                                    <constraint firstItem="aQM-ND-vBh" firstAttribute="centerX" secondItem="kjr-2a-nhD" secondAttribute="centerX" id="OZq-1X-P2c"/>
+                                    <constraint firstItem="oYQ-6f-tgM" firstAttribute="leading" secondItem="kjr-2a-nhD" secondAttribute="leading" constant="20" symbolic="YES" id="QxA-m4-FWc"/>
+                                    <constraint firstItem="aQM-ND-vBh" firstAttribute="top" secondItem="kjr-2a-nhD" secondAttribute="top" constant="63" id="SfH-v6-BxH"/>
+                                    <constraint firstAttribute="trailing" secondItem="oYQ-6f-tgM" secondAttribute="trailing" priority="900" constant="904" id="sOI-iV-KwR"/>
+                                    <constraint firstItem="iO0-Dk-jMz" firstAttribute="centerX" secondItem="aQM-ND-vBh" secondAttribute="centerX" id="tFM-3e-aFh"/>
+                                    <constraint firstItem="iO0-Dk-jMz" firstAttribute="top" secondItem="aQM-ND-vBh" secondAttribute="bottom" constant="21" id="w1X-bS-JQ1"/>
+                                    <constraint firstAttribute="bottom" secondItem="oYQ-6f-tgM" secondAttribute="bottom" constant="19" id="z47-2t-TC6"/>
+                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" id="Cr0-D6-ZfE" userLabel="Controls View">
-                                <rect key="frame" x="2" y="664" width="1020" height="101"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cr0-D6-ZfE" userLabel="Controls View">
+                                <rect key="frame" x="2" y="664" width="1021" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9tq-gN-hO8">
-                                        <rect key="frame" x="64" y="13" width="170" height="30"/>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tq-gN-hO8" userLabel="Keyframe button">
+                                        <rect key="frame" x="24" y="13" width="176" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Keyframe animation">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="Ahh-wQ-Amo"/>
+                                        </constraints>
+                                        <state key="normal" title="Keyframe view animation">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="handleAnimateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rUF-K7-d2L"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ovd-wr-dQE">
-                                        <rect key="frame" x="303" y="13" width="170" height="30"/>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwn-gr-AXS" userLabel="Keyframe CA button">
+                                        <rect key="frame" x="224" y="13" width="176" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="Uob-7B-xwv"/>
+                                        </constraints>
+                                        <state key="normal" title="Keyframe CA animation">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleAnimateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ifv-Pi-KfR"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovd-wr-dQE" userLabel="Rotate button">
+                                        <rect key="frame" x="424" y="13" width="176" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="OfS-yi-ZxO"/>
+                                        </constraints>
                                         <state key="normal" title="Core Animation Rotation">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -59,16 +92,19 @@
                                             <action selector="handleRotateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uq6-lY-8rU"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="adO-yf-K8c" customClass="WTCustomSlider">
-                                        <rect key="frame" x="18" y="51" width="984" height="34"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="adO-yf-K8c">
+                                        <rect key="frame" x="18" y="51" width="985" height="34"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="handleAnimationSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="4Zg-19-Hrg"/>
                                         </connections>
                                     </slider>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kaR-I8-8gX">
-                                        <rect key="frame" x="568" y="13" width="170" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaR-I8-8gX" userLabel="Pause button">
+                                        <rect key="frame" x="624" y="13" width="176" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="KXy-RY-QOP"/>
+                                        </constraints>
                                         <state key="normal" title="Pause">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -76,9 +112,12 @@
                                             <action selector="handlePauseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pWZ-En-ou0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GH4-s0-5iX">
-                                        <rect key="frame" x="780" y="13" width="170" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GH4-s0-5iX" userLabel="Stop button">
+                                        <rect key="frame" x="824" y="13" width="176" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="TUG-Sx-GTQ"/>
+                                        </constraints>
                                         <state key="normal" title="Stop">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -88,6 +127,25 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="adO-yf-K8c" firstAttribute="top" secondItem="9tq-gN-hO8" secondAttribute="bottom" constant="8" symbolic="YES" id="Bwg-QW-deY"/>
+                                    <constraint firstItem="9tq-gN-hO8" firstAttribute="leading" secondItem="Cr0-D6-ZfE" secondAttribute="leading" constant="24" id="DOW-1q-new"/>
+                                    <constraint firstItem="9tq-gN-hO8" firstAttribute="baseline" secondItem="Ovd-wr-dQE" secondAttribute="baseline" id="E0j-4h-eLD"/>
+                                    <constraint firstItem="Ovd-wr-dQE" firstAttribute="leading" secondItem="cwn-gr-AXS" secondAttribute="trailing" constant="24" id="GMt-S2-iBq"/>
+                                    <constraint firstItem="9tq-gN-hO8" firstAttribute="top" secondItem="Cr0-D6-ZfE" secondAttribute="top" constant="13" id="L72-sC-o8d"/>
+                                    <constraint firstItem="cwn-gr-AXS" firstAttribute="centerY" secondItem="GH4-s0-5iX" secondAttribute="centerY" id="NFK-lp-ovz"/>
+                                    <constraint firstItem="cwn-gr-AXS" firstAttribute="leading" secondItem="9tq-gN-hO8" secondAttribute="trailing" constant="24" id="RRQ-ak-OCb"/>
+                                    <constraint firstItem="cwn-gr-AXS" firstAttribute="centerY" secondItem="9tq-gN-hO8" secondAttribute="centerY" id="RrY-Kd-sZg"/>
+                                    <constraint firstItem="adO-yf-K8c" firstAttribute="leading" secondItem="Cr0-D6-ZfE" secondAttribute="leading" constant="20" symbolic="YES" id="UdR-sc-3sK"/>
+                                    <constraint firstItem="cwn-gr-AXS" firstAttribute="centerY" secondItem="kaR-I8-8gX" secondAttribute="centerY" id="cVG-6O-NDo"/>
+                                    <constraint firstItem="GH4-s0-5iX" firstAttribute="baseline" secondItem="kaR-I8-8gX" secondAttribute="baseline" id="dRv-wL-hHt"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GH4-s0-5iX" secondAttribute="trailing" constant="24" id="esd-Ml-B0x"/>
+                                    <constraint firstItem="Ovd-wr-dQE" firstAttribute="baseline" secondItem="kaR-I8-8gX" secondAttribute="baseline" id="j6b-bV-Z88"/>
+                                    <constraint firstItem="cwn-gr-AXS" firstAttribute="centerY" secondItem="Ovd-wr-dQE" secondAttribute="centerY" id="ke5-eL-p6o"/>
+                                    <constraint firstItem="GH4-s0-5iX" firstAttribute="leading" secondItem="kaR-I8-8gX" secondAttribute="trailing" constant="24" id="qfq-11-vWA"/>
+                                    <constraint firstAttribute="trailing" secondItem="adO-yf-K8c" secondAttribute="trailing" constant="20" symbolic="YES" id="rKY-lQ-omk"/>
+                                    <constraint firstItem="kaR-I8-8gX" firstAttribute="leading" secondItem="Ovd-wr-dQE" secondAttribute="trailing" constant="24" id="vZP-5T-hbt"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
@@ -102,11 +160,21 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kjr-2a-nhD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="3rI-f1-KyD"/>
+                            <constraint firstItem="Cr0-D6-ZfE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="2" id="78W-vy-3y2"/>
+                            <constraint firstAttribute="trailing" secondItem="kjr-2a-nhD" secondAttribute="trailing" id="G0u-Ng-4Z3"/>
+                            <constraint firstItem="keB-l4-P3x" firstAttribute="top" secondItem="Cr0-D6-ZfE" secondAttribute="bottom" constant="3" id="UNH-f6-BDe"/>
+                            <constraint firstItem="Cr0-D6-ZfE" firstAttribute="top" secondItem="5y8-3o-ThU" secondAttribute="bottom" constant="644" id="kG5-zY-H77"/>
+                            <constraint firstItem="keB-l4-P3x" firstAttribute="top" secondItem="kjr-2a-nhD" secondAttribute="bottom" constant="99" id="o1p-cv-nw3"/>
+                            <constraint firstItem="kjr-2a-nhD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oCE-KK-hvA"/>
+                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="animateButton" destination="9tq-gN-hO8" id="PLI-iT-jpI"/>
+                        <outlet property="animateCAButton" destination="cwn-gr-AXS" id="iYv-ff-Ial"/>
                         <outlet property="animationSlider" destination="adO-yf-K8c" id="EA8-KA-OO2"/>
                         <outlet property="animationView" destination="kjr-2a-nhD" id="E1z-7t-XDi"/>
                         <outlet property="imageViewToAnimate" destination="aQM-ND-vBh" id="o0C-Ej-ma8"/>

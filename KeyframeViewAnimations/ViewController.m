@@ -188,6 +188,7 @@
   completionBlock = ^void(void)
   {
     animateButton.enabled = YES;
+    animateCAButton.enabled = YES;
     rotateButton.enabled = YES;
     pauseButton.enabled = NO;
     stopButton.enabled = NO;
@@ -223,6 +224,160 @@
   [imageViewToAnimate.layer addAnimation:rotation forKey:@"transform.rotation.z"];
 }
 
+//------------------------------------------------------------------------------------------------------
+/*
+ This method does a keyframe animation that is visually identical to the doKeyFrameViewAnimation method,
+ But it uses CAKeyframeAnimation objects instead of using the new iOS 7 view-based keframe animations.
+ 
+ */
+
+
+- (void) doKeyframeCAAnimation;
+{
+  CGSize imageSize = imageViewToAnimate.bounds.size;
+  
+  //Create a rectangle to contain the center-point of our animations
+  //(inset by 20 pixels + the height & width of the image view
+  CGRect animationBounds = CGRectIntegral(
+                                          CGRectInset(
+                                                      animationView.bounds, 20 + imageSize.width/2,
+                                                      20+imageSize.height/2));
+  totalAnimationTime = 8.0;
+  
+  //Remember the time when we start the animation (we'll use that value in calculating the slider
+  //Poistion as well as in figuring out how to pause the animation.
+  animationStartTime = CACurrentMediaTime();
+  
+  //Make sure the animation is set to begin at the start of the animation duration.
+  imageViewToAnimate.layer.beginTime = 0;
+  
+  animationProgress = 0;
+  
+  [self startSliderTimer];
+  
+  __block CGFloat animationSteps = 6;
+  
+  CGFloat stepDistance = round(animationBounds.size.width / animationSteps);
+  
+   int stepCount;
+  
+  animationSlider.enabled = YES;
+  pauseButton.enabled = YES;
+  stopButton.enabled = YES;
+
+  animationCompletionBlock completionBlock;
+
+  //-----------------------------------
+  
+//  imageViewToAnimate.center = keyframeAnimationPlaceholder.center;
+
+  //Create a keyframe CAAnimation that moves the view's layer using cubic calculations
+  CAKeyframeAnimation* keyframeMove = nil;
+  keyframeMove=  [CAKeyframeAnimation animationWithKeyPath: @"position"];
+  keyframeMove.duration = totalAnimationTime;
+  keyframeMove.beginTime = 0;
+  keyframeMove.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+  keyframeMove.calculationMode = kCAAnimationCubic;
+  keyframeMove.removedOnCompletion = FALSE;
+  keyframeMove.fillMode = kCAFillModeBackwards;
+
+  NSMutableArray *pathArray = [NSMutableArray arrayWithCapacity:animationSteps];
+  
+  //Add the starting point
+  [pathArray addObject: [NSValue valueWithCGPoint: keyframeAnimationPlaceholder.layer.position]];
+  for (stepCount = 1; stepCount <= animationSteps; stepCount++)
+  {
+    CGPoint stepCenter;
+    CGFloat newY;
+    CGFloat newX;
+    
+    //Alternate between the top and bottom of the animation view
+    if (stepCount %2 == 0) //even step (0, 2, 4, 6). Position along the bottom
+      newY = floorf(animationBounds.origin.y +animationBounds.size.height);
+    else
+      newY =animationBounds.origin.y;
+    
+    newX = truncf(animationBounds.origin.x + stepDistance * stepCount);
+    stepCenter = CGPointMake(newX, newY );
+
+    [pathArray addObject: [NSValue valueWithCGPoint: stepCenter]];
+  }
+
+  keyframeMove.values = pathArray;
+  
+  //Create a block of code to be executed once our animation finishes.
+  completionBlock = ^void(void)
+  {
+    pauseButton.enabled = NO;
+    stopButton.enabled = NO;
+    
+    animationSlider.enabled = NO;
+    animationSlider.value = 0;
+    
+    imageViewToAnimate.layer.transform = CATransform3DIdentity;
+    [sliderTimer invalidate];
+    _animationIsPaused = NO;
+    imageViewToAnimate.layer.timeOffset = 0;
+
+    //After a pause, Animate the image view back to it's starting point.
+    _animationIsPaused = NO;
+    imageViewToAnimate.layer.speed = 1.0;
+    [UIView animateWithDuration: .2
+                          delay: .5
+                        options: 0
+                     animations:
+     ^{
+       imageViewToAnimate.center = startingCenter;
+       imageViewToAnimate.transform = CGAffineTransformIdentity;
+     }
+     //And in the completion block for THIS animation, re-enable the animation buttons.
+                     completion: ^(BOOL finished)
+     {
+       animateButton.enabled = YES;
+       animateCAButton.enabled = YES;
+       rotateButton.enabled = YES;
+       
+       [self setPauseButtonTitle];
+     }];
+};
+
+  [keyframeMove setValue: completionBlock forKey: kAnimationCompletionBlock];
+  keyframeMove.delegate = self;
+
+  [imageViewToAnimate.layer addAnimation: keyframeMove forKey: @"CALayerKeyframes"];
+  imageViewToAnimate.layer.position = [[pathArray lastObject] CGPointValue];
+  
+  //-----------------------------------
+//Create a keyframe CAAnimation that rotates the view's layer as it moves
+  
+
+  CAKeyframeAnimation* keyframeRotate;
+  angle = 0;
+  
+  animationSteps = 6;
+  keyframeRotate=  [CAKeyframeAnimation animationWithKeyPath: @"transform"];
+  keyframeRotate.removedOnCompletion = FALSE;
+  keyframeRotate.duration = totalAnimationTime;
+  keyframeRotate.beginTime = 0;
+  keyframeRotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+  
+  keyframeRotate.valueFunction = [CAValueFunction functionWithName: kCAValueFunctionRotateZ];
+  keyframeRotate.delegate = self;
+  
+  //Build an array of angles for rotating the view
+  NSMutableArray *anglesArray = [NSMutableArray arrayWithCapacity:animationSteps];
+  //Add the starting angle
+  [anglesArray addObject: @0];
+
+  for (stepCount = 1; stepCount <= animationSteps; stepCount++)
+  {
+    angle = M_PI * 4 * stepCount/animationSteps;
+    [anglesArray addObject: @(angle)];
+  }
+  keyframeRotate.values = anglesArray;
+  [imageViewToAnimate.layer addAnimation: keyframeRotate forKey: @"CALayerRotateKeyframes"];
+
+}
 //------------------------------------------------------------------------------------------------------
 /*
  This method uses the new iOS 7 UIView class method
@@ -378,6 +533,7 @@
                       completion: ^(BOOL finished)
       {
         animateButton.enabled = YES;
+        animateCAButton.enabled = YES;
         rotateButton.enabled = YES;
 
         [self setPauseButtonTitle];
@@ -440,10 +596,12 @@
 #pragma mark - IBAction methods
 //-----------------------------------------------------------------------------------------------------------
 
-- (IBAction)handleAnimateButton:(id)sender
+- (IBAction)handleAnimateButton:(UIButton *)sender
 {
+  NSInteger tag = sender.tag;
   //Before we start, disable the animation buttons so the user can't trigger an animation until we're done
   animateButton.enabled = NO;
+  animateCAButton.enabled = NO;
   rotateButton.enabled = NO;
   
   //Don't enable the pause/continue button or stop button until after we animate the image view to its
@@ -463,7 +621,10 @@
                    completion:^(BOOL finished)
    {
      //Once that animation is done, trigger the keyframe animation after a brief pause.
-     [self performSelector: @selector(doKeyFrameViewAnimation) withObject: nil afterDelay: .75];
+     if (tag == 1)
+       [self performSelector: @selector(doKeyFrameViewAnimation) withObject: nil afterDelay: .75];
+     else
+       [self performSelector: @selector(doKeyframeCAAnimation) withObject: nil afterDelay: .75];
    }
    ];
 }
@@ -474,7 +635,8 @@
 {
   //Before we start, disable the animation buttons so the user can't trigger an animation until we're done
   animateButton.enabled = NO;
-  rotateButton.enabled = NO;
+  animateCAButton.enabled = NO;
+ rotateButton.enabled = NO;
   
   //enable the pause/resume and stop buttons
   pauseButton.enabled =YES;
