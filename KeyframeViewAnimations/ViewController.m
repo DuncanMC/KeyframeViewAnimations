@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Constants.h"
 
 @interface ViewController ()
 
@@ -255,7 +256,7 @@
   
   [self startSliderTimer];
   
-  __block CGFloat animationSteps = 6;
+  __block CGFloat animationSteps = K_KEYFRAME_STEPS;
   
   CGFloat stepDistance = round(animationBounds.size.width / animationSteps);
   
@@ -351,9 +352,10 @@
 //Create a keyframe CAAnimation that rotates the view's layer as it moves
   
 
+  
+#if K_ROTATE
   CAKeyframeAnimation* keyframeRotate;
   angle = 0;
-  
   animationSteps = 6;
   keyframeRotate=  [CAKeyframeAnimation animationWithKeyPath: @"transform"];
   keyframeRotate.removedOnCompletion = FALSE;
@@ -376,12 +378,12 @@
   }
   keyframeRotate.values = anglesArray;
   [imageViewToAnimate.layer addAnimation: keyframeRotate forKey: @"CALayerRotateKeyframes"];
-
+#endif
 }
 //------------------------------------------------------------------------------------------------------
 /*
  This method uses the new iOS 7 UIView class method
- animateKeyframesWithDuration:delay:options:animations:completion: 
+ animateKeyframesWithDuration:delay:options:animations:completion:
  to run a multi-step keyframe animation on our image view "imageViewToAnimate".
  */
 
@@ -436,6 +438,9 @@
     
     newX = truncf(animationBounds.origin.x + stepDistance * stepCount);
     stepCenter = CGPointMake(newX, newY );
+#if K_LOG_KEYFRAME_STEPS
+    NSLog(@"    Animation center = %@", NSStringFromCGPoint(stepCenter));
+#endif
     imageViewToAnimate.center = stepCenter;
   };
   
@@ -460,6 +465,10 @@
   pauseButton.enabled = YES;
   stopButton.enabled = YES;
 
+  printf("\n");
+#if K_LOG_KEYFRAME_STEPS
+  NSLog(@"Building keyframe view animation");
+#endif
   [UIView animateKeyframesWithDuration: totalAnimationTime
                                  delay:0.0
                                options: UIViewKeyframeAnimationOptionCalculationModeCubic + UIViewAnimationOptionCurveLinear
@@ -474,19 +483,24 @@
      {
        CGFloat startTime = (stepCount-1)/animationSteps;
        CGFloat relDuration = 1/animationSteps;
-       //NSLog(@"Adding animation step %d, start time = %.3f, duration = %.3f", stepCount, startTime, relDuration);
+#if K_LOG_KEYFRAME_STEPS
+       NSLog(@"  Adding animation step %d, start time = %.3f, duration = %.3f", stepCount, startTime, relDuration);
+#endif
        [UIView addKeyframeWithRelativeStartTime: startTime
                                relativeDuration: relDuration
                                      animations: animationStepBlock
         ];
      }
-     
+     printf("\n");
+
+#if K_ROTATE
+
      /*
       Also animate a change to the rotation of the view's layer. We run this animation in 6 steps to show that
       the 2 sets of keyframes are run independently and concurrently.
       */
      
-     animationSteps = 6;
+     animationSteps = K_KEYFRAME_STEPS;
      for (stepCount = 1; stepCount <= animationSteps; stepCount++)
      {
        CGFloat startTime = (stepCount-1)/animationSteps;
@@ -503,6 +517,7 @@
         }
         ];
      }
+#endif
    }
    //Provide a completion block for the entire keyframe sequnce.
                             completion: ^(BOOL finished)

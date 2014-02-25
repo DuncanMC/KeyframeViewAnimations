@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE07F25E18BCE5220007350A /* DebugLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE07F25D18BCE5220007350A /* DebugLayer.m */; };
+		AE07F26118BCE54D0007350A /* DebugImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE07F26018BCE54D0007350A /* DebugImageView.m */; };
 		AE12142718B6DE1D00AA9441 /* CALayer+setUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AE12142618B6DE1D00AA9441 /* CALayer+setUIColor.m */; };
 		AE581CBE18A1477E003EA317 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CBD18A1477E003EA317 /* Foundation.framework */; };
 		AE581CC018A1477E003EA317 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CBF18A1477E003EA317 /* CoreGraphics.framework */; };
@@ -35,6 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE07F25C18BCE5220007350A /* DebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugLayer.h; path = DebugLayer/DebugLayer.h; sourceTree = "<group>"; };
+		AE07F25D18BCE5220007350A /* DebugLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugLayer.m; path = DebugLayer/DebugLayer.m; sourceTree = "<group>"; };
+		AE07F25F18BCE54D0007350A /* DebugImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugImageView.h; path = DebugLayer/DebugImageView.h; sourceTree = "<group>"; };
+		AE07F26018BCE54D0007350A /* DebugImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugImageView.m; path = DebugLayer/DebugImageView.m; sourceTree = "<group>"; };
+		AE07F26218BCEBEB0007350A /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		AE12142518B6DE1D00AA9441 /* CALayer+setUIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+setUIColor.h"; sourceTree = "<group>"; };
 		AE12142618B6DE1D00AA9441 /* CALayer+setUIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+setUIColor.m"; sourceTree = "<group>"; };
 		AE581CBA18A1477E003EA317 /* KeyframeViewAnimations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyframeViewAnimations.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +89,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE07F25B18BCE4FC0007350A /* DebugLayer */ = {
+			isa = PBXGroup;
+			children = (
+				AE07F25F18BCE54D0007350A /* DebugImageView.h */,
+				AE07F26018BCE54D0007350A /* DebugImageView.m */,
+				AE07F25C18BCE5220007350A /* DebugLayer.h */,
+				AE07F25D18BCE5220007350A /* DebugLayer.m */,
+			);
+			name = DebugLayer;
+			sourceTree = "<group>";
+		};
 		AE581CB118A1477E003EA317 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +133,8 @@
 		AE581CC318A1477E003EA317 /* KeyframeViewAnimations */ = {
 			isa = PBXGroup;
 			children = (
+				AE07F26218BCEBEB0007350A /* Constants.h */,
+				AE07F25B18BCE4FC0007350A /* DebugLayer */,
 				AE581CCC18A1477E003EA317 /* AppDelegate.h */,
 				AE581CCD18A1477E003EA317 /* AppDelegate.m */,
 				AE581CCF18A1477E003EA317 /* Main.storyboard */,
@@ -254,10 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE07F26118BCE54D0007350A /* DebugImageView.m in Sources */,
 				AE12142718B6DE1D00AA9441 /* CALayer+setUIColor.m in Sources */,
 				AE581CD418A1477E003EA317 /* ViewController.m in Sources */,
 				AE581CCE18A1477E003EA317 /* AppDelegate.m in Sources */,
 				AE581CCA18A1477E003EA317 /* main.m in Sources */,
+				AE07F25E18BCE5220007350A /* DebugLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
