@@ -411,7 +411,7 @@
 
   [self startSliderTimer];
   
-  __block CGFloat animationSteps = 6;
+  __block CGFloat animationSteps = K_KEYFRAME_STEPS;
   
   CGFloat stepDistance = round(animationBounds.size.width / animationSteps);
   
@@ -500,7 +500,7 @@
       the 2 sets of keyframes are run independently and concurrently.
       */
      
-     animationSteps = K_KEYFRAME_STEPS;
+     animationSteps = 6;
      for (stepCount = 1; stepCount <= animationSteps; stepCount++)
      {
        CGFloat startTime = (stepCount-1)/animationSteps;

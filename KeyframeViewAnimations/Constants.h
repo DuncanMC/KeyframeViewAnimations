@@ -13,6 +13,6 @@
 #define K_ROTATE 0
 #define K_KEYFRAME_STEPS 6
 #define K_FIX_ANIMATION 0
-#define K_LOG_KEYFRAME_STEPS 0
+#define K_LOG_KEYFRAME_STEPS 1
 
 #endif
