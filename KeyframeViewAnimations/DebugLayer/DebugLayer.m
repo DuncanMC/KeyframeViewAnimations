@@ -17,7 +17,7 @@
 #if K_LOG_KEYFRAME_STEPS
   NSLog(@"Adding animation for key \"%@\". Animation = %@", key, anim);
 #endif
-  if ([anim isMemberOfClass: [CAKeyframeAnimation class]])
+  if ( [anim isMemberOfClass: [CAKeyframeAnimation class]])
   {
 #if K_LOG_KEYFRAME_STEPS || K_FIX_ANIMATION
     NSValue *previousValue = nil;

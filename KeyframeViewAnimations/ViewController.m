@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Constants.h"
 
+
 @interface ViewController ()
 
 @end
@@ -275,7 +276,6 @@
 
   //-----------------------------------
   
-//  imageViewToAnimate.center = keyframeAnimationPlaceholder.center;
 
   //Create a keyframe CAAnimation that moves the view's layer using cubic calculations
   CAKeyframeAnimation* keyframeMove = nil;
@@ -363,7 +363,7 @@
 #if K_ROTATE
   CAKeyframeAnimation* keyframeRotate;
   angle = 0;
-  animationSteps = 6;
+  animationSteps = 8;
   keyframeRotate=  [CAKeyframeAnimation animationWithKeyPath: @"transform"];
   keyframeRotate.removedOnCompletion = FALSE;
   keyframeRotate.duration = totalAnimationTime;
@@ -532,6 +532,7 @@
 #if K_LOG_KEYFRAME_STEPS
   NSLog(@"Building keyframe view animation");
 #endif
+
   [UIView animateKeyframesWithDuration: totalAnimationTime
                                  delay:0.0
                                options: UIViewKeyframeAnimationOptionCalculationModeCubic + UIViewAnimationOptionCurveLinear
@@ -549,6 +550,7 @@
 #if K_LOG_KEYFRAME_STEPS
        NSLog(@"  Adding animation step %d, start time = %.3f, duration = %.3f", stepCount, startTime, relDuration);
 #endif
+
        [UIView addKeyframeWithRelativeStartTime: startTime
                                relativeDuration: relDuration
                                      animations: animationStepBlock
@@ -563,7 +565,7 @@
       the 2 sets of keyframes are run independently and concurrently.
       */
      
-     animationSteps = 6;
+     animationSteps = 8;
      for (stepCount = 1; stepCount <= animationSteps; stepCount++)
      {
        CGFloat startTime = (stepCount-1)/animationSteps;
@@ -614,7 +616,7 @@
         animateButton.enabled = YES;
         animateCAButton.enabled = YES;
         rotateButton.enabled = YES;
-
+        
         [self setPauseButtonTitle];
       }];
    }];
