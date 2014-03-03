@@ -13,9 +13,6 @@
 
 - (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key
 {
-  NSValue *previousValue = nil;
-  NSNumber *previousTime = nil;
-  BOOL duplicates_found = NO;
 
 #if K_LOG_KEYFRAME_STEPS
   NSLog(@"Adding animation for key \"%@\". Animation = %@", key, anim);
@@ -23,10 +20,13 @@
   if ([anim isMemberOfClass: [CAKeyframeAnimation class]])
   {
 #if K_LOG_KEYFRAME_STEPS || K_FIX_ANIMATION
+    NSValue *previousValue = nil;
+    NSNumber *previousTime = nil;
+    BOOL duplicates_found = NO;
     CAKeyframeAnimation *keyframe = (CAKeyframeAnimation *) anim;
 #endif
     
-#if K_LOG_KEYFRAME_STEPS
+#if K_LOG_KEYFRAME_STEPS || K_FIX_ANIMATION
     NSString *dupeString;
     for (int index = 0; index<keyframe.values.count; index++ )
     {
@@ -40,8 +40,13 @@
       }
       else
         dupeString = @"";
-        NSLog(@"  Key %d, value = %@,\ttime = %.3f %@", index, aValue, aTime.floatValue, dupeString);
-      
+#if K_LOG_KEYFRAME_STEPS
+      const char *aValueType = [aValue objCType];
+      if (strstr(aValueType, "Point") != NULL)
+        NSLog(@"  Key %d, value = %@,\ttime = %.2f", index, aValue, aTime.floatValue);
+      else
+        NSLog(@"  Key %d, value = %s,\ttime = %.2f", index, aValueType, aTime.floatValue);
+#endif
       previousValue = aValue;
       previousTime = aTime;
  
@@ -90,12 +95,16 @@
       
       for (int index = 0; index<keyframe.values.count; index++ )
       {
-        NSValue *aValue = keyframe.values[index];
         NSNumber *aTime;
         if (keyframe.keyTimes.count >= index+1)
           aTime = keyframe.keyTimes[index];
 #if K_LOG_KEYFRAME_STEPS
-        NSLog(@"  Key %d, value = %@,\ttime = %.2f", index, aValue, aTime.floatValue);
+        NSValue *aValue = keyframe.values[index];
+        const char *aValueType = [aValue objCType];
+        if (strstr(aValueType, "Point") != NULL)
+          NSLog(@"  Key %d, value = %@,\ttime = %.2f", index, aValue, aTime.floatValue);
+        else
+          NSLog(@"  Key %d, value = %s,\ttime = %.2f", index, aValueType, aTime.floatValue);
 #endif
       }
     }

@@ -256,6 +256,11 @@
   
   [self startSliderTimer];
   
+  if (!pathLayer)
+    [self createPathLayer];
+
+  pathLayer.opacity = 1.0;
+
   __block CGFloat animationSteps = K_KEYFRAME_STEPS;
   
   CGFloat stepDistance = round(animationBounds.size.width / animationSteps);
@@ -323,6 +328,8 @@
     //After a pause, Animate the image view back to it's starting point.
     _animationIsPaused = NO;
     imageViewToAnimate.layer.speed = 1.0;
+    pathLayer.opacity = 0;
+
     [UIView animateWithDuration: .2
                           delay: .5
                         options: 0
@@ -381,6 +388,58 @@
 #endif
 }
 //------------------------------------------------------------------------------------------------------
+- (void) createPathLayer;
+{
+  CGSize imageSize = imageViewToAnimate.bounds.size;
+  
+  CGRect pathBounds = CGRectIntegral(CGRectInset(
+                                                 animationView.layer.bounds,
+                                                 20 + imageSize.width/2,
+                                                 20+imageSize.height/2));
+
+  UIBezierPath *path = [UIBezierPath new];
+  
+  pathLayer = [CAShapeLayer layer];
+
+  pathLayer.frame = animationView.layer.bounds;
+   CGFloat animationSteps = K_KEYFRAME_STEPS;
+  CGFloat stepDistance = round(pathBounds.size.width / animationSteps);
+  
+   int stepCount = 1;
+
+  CGPoint stepCenter;
+  CGFloat newY;
+  CGFloat newX;
+  [path moveToPoint: keyframeAnimationPlaceholder.layer.position];
+  for (stepCount = 1; stepCount <= animationSteps; stepCount++)
+  {  //Alternate between the top and bottom of the animation view
+    if (stepCount %2 == 0) //even step (0, 2, 4, 6). Position along the bottom
+      newY = floorf(pathBounds.origin.y +pathBounds.size.height);
+    else
+      newY =pathBounds.origin.y;
+    
+    newX = truncf(pathBounds.origin.x + stepDistance * stepCount);
+    stepCenter = CGPointMake(newX, newY );
+    [path addLineToPoint: stepCenter];
+  }
+  pathLayer.path = path.CGPath;
+  pathLayer.strokeColor = [UIColor colorWithRed: 0
+                                          green: 0
+                                           blue: 0
+                                          alpha: .5].CGColor;
+//  pathLayer.strokeColor = [UIColor blackColor].CGColor;
+  pathLayer.fillColor = [UIColor clearColor].CGColor;
+  pathLayer.lineWidth = 1.0;
+  pathLayer.lineDashPattern = [NSArray arrayWithObjects:
+                                [NSNumber numberWithInt: 5],
+                                [NSNumber numberWithInt: 9],
+                                nil];
+
+  [animationView.layer addSublayer: pathLayer];
+  
+}
+
+//------------------------------------------------------------------------------------------------------
 /*
  This method uses the new iOS 7 UIView class method
  animateKeyframesWithDuration:delay:options:animations:completion:
@@ -389,7 +448,7 @@
 
 - (void) doKeyFrameViewAnimation;
 {
-  
+  pathLayer.opacity = 1.0;
   CGSize imageSize = imageViewToAnimate.bounds.size;
   
   //Create a rectangle to contain the center-point of our animations
@@ -399,6 +458,10 @@
                                                       animationView.bounds, 20 + imageSize.width/2,
                                                       20+imageSize.height/2));
   totalAnimationTime = 8.0;
+  
+  if (!pathLayer)
+    [self createPathLayer];
+
   
   //Remember the time when we start the animation (we'll use that value in calculating the slider
   //Poistion as well as in figuring out how to pause the animation.
@@ -529,6 +592,7 @@
      animationSlider.enabled = NO;
      pauseButton.enabled = NO;
      stopButton.enabled = NO;
+     pathLayer.opacity = 0;
 
      //Reset the slider value to zero.
      animationSlider.value = 0;

@@ -36,7 +36,7 @@ typedef enum
   CFTimeInterval totalAnimationTime;
   CGFloat animationProgress;
   
-  
+  CAShapeLayer *pathLayer;
   __weak NSTimer *sliderTimer;
 }
 
