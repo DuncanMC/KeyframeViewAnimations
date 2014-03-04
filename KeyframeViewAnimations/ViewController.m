@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Constants.h"
+#import "UIBezierPath-Smoothing.h"
 
 
 @interface ViewController ()
@@ -283,7 +284,12 @@
   keyframeMove.duration = totalAnimationTime;
   keyframeMove.beginTime = 0;
   keyframeMove.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+#if K_USE_CUBIC_PACING
   keyframeMove.calculationMode = kCAAnimationCubic;
+#else
+  keyframeMove.calculationMode = kCAAnimationLinear;
+#endif
+  
   keyframeMove.removedOnCompletion = FALSE;
   keyframeMove.fillMode = kCAFillModeBackwards;
 
@@ -422,6 +428,10 @@
     stepCenter = CGPointMake(newX, newY );
     [path addLineToPoint: stepCenter];
   }
+  
+#if K_USE_CUBIC_PACING
+  path = [path smoothedPath: 16];
+#endif
   pathLayer.path = path.CGPath;
   pathLayer.strokeColor = [UIColor colorWithRed: 0
                                           green: 0
@@ -532,10 +542,18 @@
 #if K_LOG_KEYFRAME_STEPS
   NSLog(@"Building keyframe view animation");
 #endif
-
+  
+  int options;
+  
+#if K_USE_CUBIC_PACING
+  options = UIViewKeyframeAnimationOptionCalculationModeCubic + UIViewAnimationOptionCurveLinear;
+#else
+  options = UIViewKeyframeAnimationOptionCalculationModeLinear + UIViewAnimationOptionCurveLinear;
+  
+#endif
   [UIView animateKeyframesWithDuration: totalAnimationTime
                                  delay:0.0
-                               options: UIViewKeyframeAnimationOptionCalculationModeCubic + UIViewAnimationOptionCurveLinear
+                               options: options
                             animations:
    ^{
      /*

@@ -24,6 +24,8 @@
 		AE581CDF18A1477E003EA317 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE581CC118A1477E003EA317 /* UIKit.framework */; };
 		AE581CE718A1477E003EA317 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE581CE518A1477E003EA317 /* InfoPlist.strings */; };
 		AE581CE918A1477E003EA317 /* KeyframeViewAnimationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */; };
+		AEE4928E18C6235500D43663 /* UIBezierPath-Points.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE4928B18C6235500D43663 /* UIBezierPath-Points.m */; };
+		AEE4928F18C6235500D43663 /* UIBezierPath-Smoothing.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE4928D18C6235500D43663 /* UIBezierPath-Smoothing.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,10 @@
 		AE581CE418A1477E003EA317 /* KeyframeViewAnimationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyframeViewAnimationsTests-Info.plist"; sourceTree = "<group>"; };
 		AE581CE618A1477E003EA317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyframeViewAnimationsTests.m; sourceTree = "<group>"; };
+		AEE4928A18C6235500D43663 /* UIBezierPath-Points.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Points.h"; sourceTree = "<group>"; };
+		AEE4928B18C6235500D43663 /* UIBezierPath-Points.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath-Points.m"; sourceTree = "<group>"; };
+		AEE4928C18C6235500D43663 /* UIBezierPath-Smoothing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Smoothing.h"; sourceTree = "<group>"; };
+		AEE4928D18C6235500D43663 /* UIBezierPath-Smoothing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath-Smoothing.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,10 @@
 				AE581CCF18A1477E003EA317 /* Main.storyboard */,
 				AE12142518B6DE1D00AA9441 /* CALayer+setUIColor.h */,
 				AE12142618B6DE1D00AA9441 /* CALayer+setUIColor.m */,
+				AEE4928A18C6235500D43663 /* UIBezierPath-Points.h */,
+				AEE4928B18C6235500D43663 /* UIBezierPath-Points.m */,
+				AEE4928C18C6235500D43663 /* UIBezierPath-Smoothing.h */,
+				AEE4928D18C6235500D43663 /* UIBezierPath-Smoothing.m */,
 				AE581CD218A1477E003EA317 /* ViewController.h */,
 				AE581CD318A1477E003EA317 /* ViewController.m */,
 				AE581CD518A1477E003EA317 /* Images.xcassets */,
@@ -275,8 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE07F26118BCE54D0007350A /* DebugImageView.m in Sources */,
+				AEE4928E18C6235500D43663 /* UIBezierPath-Points.m in Sources */,
 				AE12142718B6DE1D00AA9441 /* CALayer+setUIColor.m in Sources */,
 				AE581CD418A1477E003EA317 /* ViewController.m in Sources */,
+				AEE4928F18C6235500D43663 /* UIBezierPath-Smoothing.m in Sources */,
 				AE581CCE18A1477E003EA317 /* AppDelegate.m in Sources */,
 				AE581CCA18A1477E003EA317 /* main.m in Sources */,
 				AE07F25E18BCE5220007350A /* DebugLayer.m in Sources */,
