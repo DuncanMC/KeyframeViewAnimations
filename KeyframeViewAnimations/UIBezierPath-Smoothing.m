@@ -7,7 +7,7 @@
 #import "UIBezierPath-Smoothing.h"
 #import "UIBezierPath-Points.h"
 
-#define K_BUG_FIX 0
+#define K_BUG_FIX 1
 
 #define POINT(_INDEX_) [(NSValue *)[points objectAtIndex:_INDEX_] CGPointValue]
 
@@ -35,10 +35,10 @@
   line_points = 2;
 #endif
   
-    for (int index = 1; index < line_points; index++) //changed to 1 to to 2.
+    for (int index = 1; index < line_points; index++) //change "for (int index = 1; index < 3; index++)" to "for (int index = 1; index < 2; index++)".
         [smoothedPath addLineToPoint:POINT(index)];
     
-    for (int index = line_points+1; index < points.count; index++)  //changed to start at index = 3;
+    for (int index = line_points+1; index < points.count; index++)  //Change "for (int index = 4; index < points.count; index++)" to "for (int index = 3; index < points.count; index++)"
     {
         CGPoint p0 = POINT(index - 3);
         CGPoint p1 = POINT(index - 2);
