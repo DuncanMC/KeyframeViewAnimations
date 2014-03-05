@@ -15,6 +15,7 @@
 {
 
 #if K_LOG_KEYFRAME_STEPS
+  printf("\n");
   NSLog(@"Adding animation for key \"%@\". Animation = %@", key, anim);
 #endif
   if ( [anim isMemberOfClass: [CAKeyframeAnimation class]])
@@ -43,9 +44,9 @@
 #if K_LOG_KEYFRAME_STEPS
       const char *aValueType = [aValue objCType];
       if (strstr(aValueType, "Point") != NULL)
-        NSLog(@"  Key %d, value = %@,\ttime = %.2f", index, aValue, aTime.floatValue);
+        NSLog(@"  Key %d, value = %@,\ttime = %.2f%@", index, aValue, aTime.floatValue, dupeString);
       else
-        NSLog(@"  Key %d, value = %s,\ttime = %.2f", index, aValueType, aTime.floatValue);
+        NSLog(@"  Key %d, value = %s,\ttime = %.2f%@", index, aValueType, aTime.floatValue, dupeString);
 #endif
       previousValue = aValue;
       previousTime = aTime;
@@ -62,8 +63,9 @@
       
       NSMutableArray *newTimes = [NSMutableArray arrayWithCapacity: keyframe.keyTimes.count];
       //[keyframe.keyTimes mutableCopy];
-#if K_LOG_KEYFRAME_STEPS
-//      NSLog(@"\n\n>--->> Removing extra indexes from values and keyTimes <<---");
+#endif
+#if K_LOG_KEYFRAME_STEPS && K_FIX_ANIMATION
+      NSLog(@"\n\n>--->> Removing extra indexes from values and keyTimes <<---");
 #endif
       
       previousValue = nil;
@@ -77,19 +79,23 @@
         if (!([aValue isEqual: previousValue] &&
               fabs(aTime.doubleValue - previousTime.doubleValue) < .0001))
         {
+#if K_FIX_ANIMATION
+
           [newValues addObject: aValue];
           if (aTime)
             [newTimes addObject: aTime];
+#endif
         }
         else
         {
-#if K_LOG_KEYFRAME_STEPS
+#if K_LOG_KEYFRAME_STEPS && K_FIX_ANIMATION
           NSLog(@"Skipping index %d", index);
 #endif
         }
         previousValue = aValue;
         previousTime = aTime;
       }
+#if K_FIX_ANIMATION
       keyframe.values = newValues;
       keyframe.keyTimes = newTimes;
       
@@ -105,8 +111,11 @@
           NSLog(@"  Key %d, value = %@,\ttime = %.2f", index, aValue, aTime.floatValue);
         else
           NSLog(@"  Key %d, value = %s,\ttime = %.2f", index, aValueType, aTime.floatValue);
-#endif
       }
+#endif
+#endif
+
+#if K_FIX_ANIMATION
     }
 #endif
   }
