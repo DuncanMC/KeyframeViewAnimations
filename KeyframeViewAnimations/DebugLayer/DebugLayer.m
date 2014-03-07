@@ -13,7 +13,7 @@
 
 - (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key
 {
-
+  
 #if K_LOG_KEYFRAME_STEPS
   printf("\n");
   NSLog(@"Adding animation for key \"%@\". Animation = %@", key, anim);
@@ -50,7 +50,7 @@
 #endif
       previousValue = aValue;
       previousTime = aTime;
- 
+      
     }
 #endif
     
@@ -66,10 +66,12 @@
 #endif
 #if K_LOG_KEYFRAME_STEPS && K_FIX_ANIMATION
       NSLog(@"\n\n>--->> Removing extra indexes from values and keyTimes <<---");
-#endif
       
       previousValue = nil;
       previousTime = nil;
+#endif
+      
+#if K_LOG_KEYFRAME_STEPS || K_FIX_ANIMATION
       
       for (int index = 0; index<keyframe.values.count; index++ )
       {
@@ -80,7 +82,7 @@
               fabs(aTime.doubleValue - previousTime.doubleValue) < .0001))
         {
 #if K_FIX_ANIMATION
-
+          
           [newValues addObject: aValue];
           if (aTime)
             [newTimes addObject: aTime];
@@ -95,6 +97,7 @@
         previousValue = aValue;
         previousTime = aTime;
       }
+#endif
 #if K_FIX_ANIMATION
       keyframe.values = newValues;
       keyframe.keyTimes = newTimes;
@@ -111,10 +114,10 @@
           NSLog(@"  Key %d, value = %@,\ttime = %.2f", index, aValue, aTime.floatValue);
         else
           NSLog(@"  Key %d, value = %s,\ttime = %.2f", index, aValueType, aTime.floatValue);
+#endif
       }
 #endif
-#endif
-
+      
 #if K_FIX_ANIMATION
     }
 #endif
