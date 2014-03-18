@@ -65,6 +65,8 @@
 		AE581CE418A1477E003EA317 /* KeyframeViewAnimationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KeyframeViewAnimationsTests-Info.plist"; sourceTree = "<group>"; };
 		AE581CE618A1477E003EA317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE581CE818A1477E003EA317 /* KeyframeViewAnimationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyframeViewAnimationsTests.m; sourceTree = "<group>"; };
+		AE5A498218D8C42E008F1B9E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		AE5A498318D8C42E008F1B9E /* Sleuthing UIView animations.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Sleuthing UIView animations.md"; sourceTree = SOURCE_ROOT; };
 		AEE4928A18C6235500D43663 /* UIBezierPath-Points.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Points.h"; sourceTree = "<group>"; };
 		AEE4928B18C6235500D43663 /* UIBezierPath-Points.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath-Points.m"; sourceTree = "<group>"; };
 		AEE4928C18C6235500D43663 /* UIBezierPath-Smoothing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath-Smoothing.h"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		AE581CC418A1477E003EA317 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE5A498118D8C3CD008F1B9E /* Documentation */,
 				AE581CC518A1477E003EA317 /* KeyframeViewAnimations-Info.plist */,
 				AE581CC618A1477E003EA317 /* InfoPlist.strings */,
 				AE581CC918A1477E003EA317 /* main.m */,
@@ -185,6 +188,15 @@
 				AE581CE518A1477E003EA317 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE5A498118D8C3CD008F1B9E /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				AE5A498218D8C42E008F1B9E /* README.md */,
+				AE5A498318D8C42E008F1B9E /* Sleuthing UIView animations.md */,
+			);
+			name = Documentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
