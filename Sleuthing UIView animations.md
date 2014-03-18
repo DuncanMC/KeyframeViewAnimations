@@ -79,35 +79,31 @@ I originally did this because I was trying to track down an odd behavior with th
 
 Keyframe `UIView` animations end up creating one or more corresponding `CAKeyframeAnimation` objects and adding them to your view's layer, so when you run a keyframe view animation on a **DebugImageView**, you'll see an entry in the debug console listing one or more  `CAKeyframeAnimation` objects being added to your view's layer.
 
-CAKeyframeAnimation animations can either take an array of key values or a CGPath (which is the Core Graphics object that backs a UIBezierPath. It is based on Core Foundation rather than NSObject.) If you create a UIView keyframe animation using animateKeyframesWithDuration:delay:options:animations:completion:, you will find that the system creates one or more CAKeyframeAnimation objects with an NSArray of NSValue objects in it's values property that correspond to the key values you specify, plus an array of time values in the keyTimes property.
+`CAKeyframeAnimation` animations can either take an array of key values or a `CGPath` (which is the Core Graphics object that backs a `UIBezierPath`. `CAKeyframeAnimation` is based on Core Foundation rather than `NSObject`.) If you create a `UIView` keyframe animation using `animateKeyframesWithDuration:delay:options:animations:completion:`, you will find that the system creates one or more `CAKeyframeAnimation` objects with an `NSArray` of `NSValue` objects in it's values property that correspond to the key values you specify, plus an array of time values in the `keyTimes` property.
 
-I first started sleuthing UIView keyframe animations when I was animating the position of a UIImageView using cubic calculation mode, which causes the image view to follow a curved path through the list of positions that I specified. I was getting some odd behavior in the path my animations followed. It looked like there was a bug in the resulting animations. For some of the points in the animation, my image view would bounce off the point rather than following a smooth curve through it. Exactly which points, and how many points, showed the odd behavior varied with the number of keyframes in the animation.
+I first started sleuthing UIView keyframe animations when I was animating the position of a `UIImageView` using cubic calculation mode, which causes the image view to follow a curved path through the list of positions that I specified. I was getting some odd behavior in the path my animations followed. It looked like there was a bug in the resulting animations. For some of the points in the animation, my image view would bounce off the point rather than following a smooth curve through it. Exactly which points, and how many points, showed the odd behavior varied with the number of keyframes in the animation.
 
-I thus developed a DebugLayer class that logged all the keyframe values for every CAKeyframeAnimation that was submitted to the layer.
+I thus developed a **DebugLayer** class that logged all the keyframe values for every `CAKeyframeAnimation` that was submitted to the layer.
 
-For a keyframe UIView animation, the system creates a CAKeyframeAnimation that has an NSArray of CGPoint coordinates. The CGPoint values are packaged as NSValue objects so they can be contained in an NSArray.
+For a keyframe `UIView` animation, the system creates a `CAKeyframeAnimation` that has an `NSArray` of `CGPoint` coordinates. The `CGPoint` values are packaged as `NSValue` objects so they can be contained in an `NSArray`.
 
-I found that for the keyframe values that showed the odd behavior, the system was submitting a duplicate entry in the values array. (Both the coordinates of the point in the values array and the value of the time entry in the keyTimes array were duplicated, although the floating point value for the entry in keyTimes was different by a very tiny amount, so I needed to make the logic check for keyTime values that were "really close" to the other value (I settled on checking for key time values that were within .0001 of each other.
+I found that for the keyframe values that showed the odd behavior, the system was submitting a duplicate entry in the values array. (Both the coordinates of the point in the values array and the value of the time entry in the `keyTimes` array were duplicated, although the floating point value for the entry in `keyTimes` was different by a very tiny amount, so I needed to make the logic check for keyTime values that were "really close" to the other value (I settled on checking for key time values that were within .0001 of each other.)
 
-I then went on to write code that detected the duplicate values in values & keyTimes and remove the duplicates. (I did that by creating mutable copies of the values and keyTimes arrays, and copying all the non-duplicate entries to the new array, then installing the "condensed" arrays back into the animation object before submitting to the system with a call to 
-
-  [super addAnimation: anim forKey: key];
+I then went on to write code that detected the duplicate values in values & keyTimes and remove the duplicates. (I did that by creating mutable copies of the values and keyTimes arrays, and copying all the non-duplicate entries to the new array, then installing the "condensed" arrays back into the animation object before submitting to the system with a call to `[super addAnimation: anim forKey: key];`)
 
 Sure enough, when I remove duplicate keyframe entries from the values and keyTimes arrays, the odd bouncing effect goes away from position animations.
 
-I ended up with a custom DebugLayer class that will optionally log each animation that is added to it, and also optionally detect and remove duplicate keyframe/keyTime values. The code is driven by a set of compiler switches that lets me turn logging and fixes on or off at will. I also added compiler switches that let me turn cubic calculation mode on or off, turn off a rotation animation that also submitted at the same time, vary the number of steps in the keyframe animation.  The switch definitions look like this:
+I ended up with a custom **DebugLayer** class that will optionally log each animation that is added to it, and also optionally detect and/or remove duplicate keyframe/keyTime values. The code is driven by a set of compiler switches that lets me turn logging and fixes on or off at will. I also added compiler switches that let me turn cubic calculation mode on or off, turn off a rotation animation that also submitted at the same time, vary the number of steps in the keyframe animation.  The switch definitions look like this:
 
 
+```Objective-C
 #define K_USE_CUBIC_PACING 1
 #define K_ROTATE 1
 #define K_KEYFRAME_STEPS 6
 #define K_FIX_ANIMATION 1
 #define K_LOG_KEYFRAME_STEPS 0
+```
 
-The code for my custom DebugLayer's addAnimation:forKey: method has gotten pretty convoluted in order to handle the different compiler flags, but the concept is pretty straightforward. It would be easy to add code to log lots of different animation settings for the types of animations you are analyzing. 
-
-A sample project that uses the DebugImageView and DebugLayer class described above is available on github at https://github.com/DuncanMC/KeyframeViewAnimations.
+The code for my custom **DebugLayer's** `addAnimation:forKey:` method has gotten pretty convoluted in order to handle the different compiler flags, but the concept is pretty straightforward. It would be easy to add code to log lots of different animation settings for the types of animations you are analyzing. 
 
 
-Duncan Champney
-WareTo
